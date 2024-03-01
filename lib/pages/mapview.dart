@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flightsky/constants.dart';
 import 'package:flightsky/models/LatLong.dart';
 import 'package:flightsky/models/opensky.dart';
 import 'package:flutter/foundation.dart';
@@ -63,8 +64,7 @@ class _MapViewState extends State<MapView> {
               urlTemplate:
                   'https://api.mapbox.com/styles/v1/deepanshu1810/clt8r9qq9006y01qr13915rfg/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGVlcGFuc2h1MTgxMCIsImEiOiJjbHQ4cG05aHIwdDhiMmlxbXAwbnlndmtnIn0.l_mnRepKUMb8zAy_-YNxkA',
               additionalOptions: {
-                'accessToken':
-                    'pk.eyJ1IjoiZGVlcGFuc2h1MTgxMCIsImEiOiJjbHQ4cG05aHIwdDhiMmlxbXAwbnlndmtnIn0.l_mnRepKUMb8zAy_-YNxkA',
+                'accessToken': access_key,
                 'id': 'mapbox.mapbox-streets-v8'
               },
             ),
