@@ -4,8 +4,10 @@ import 'package:flightsky/pages/mapview.dart';
 import 'package:flightsky/repository/opensky_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
-void main() {
+Future<void> main() async {
+  await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }
 
