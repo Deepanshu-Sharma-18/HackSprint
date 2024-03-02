@@ -8,8 +8,8 @@ final dio = Dio();
 class WeatherData {
   final String main;
   final String description;
-  
-   final List<String> weatherConditions = [
+
+  final List<String> weatherConditions = [
     'Thunderstorms',
     'Heavy snow',
     'Freezing rain',
@@ -36,7 +36,7 @@ Future<WeatherData> getCurrentWeather(double latitude, double longitude) async {
       queryParameters: {
         'lat': latitude,
         'lon': longitude,
-        'appid': openweatherKey,
+        'appid': "",
       },
     );
 

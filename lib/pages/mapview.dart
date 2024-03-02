@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'dart:ffi';
-import 'dart:io';
 import 'package:flightsky/constants.dart';
 import 'package:flightsky/models/LatLong.dart';
 import 'package:flightsky/models/flightsapi.dart';
 import 'package:flightsky/models/opensky.dart';
+import 'package:flightsky/pages/components/flight_card.dart';
 import 'package:flightsky/repository/flightsapi_client.dart';
 import 'package:flightsky/repository/opensky_client.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
@@ -29,7 +29,7 @@ class _MapViewState extends State<MapView> {
       if (data != null) {
         getCoordinates(data!);
         print(data!.states!);
-        
+        // getCoordinates(data!);
       }
     }
   }
@@ -61,40 +61,13 @@ class _MapViewState extends State<MapView> {
             child: InkWell(
               onTap: () {
                 showModalBottomSheet(
+                    backgroundColor: Color.fromARGB(255, 65, 90, 92),
                     context: context,
                     builder: (context) {
-                      return Column(
-                        mainAxisSize: MainAxisSize.min,
-                        children: <Widget>[
-                          ListTile(
-                            leading: new Icon(Icons.photo),
-                            title: new Text('Photo'),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                          ListTile(
-                            leading: new Icon(Icons.music_note),
-                            title: new Text('Music'),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                          ListTile(
-                            leading: new Icon(Icons.videocam),
-                            title: new Text('Video'),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                          ListTile(
-                            leading: new Icon(Icons.share),
-                            title: new Text('Share'),
-                            onTap: () {
-                              Navigator.pop(context);
-                            },
-                          ),
-                        ],
+                      return Container(
+                        width: double.maxFinite,
+                        child: Padding(
+                            padding: EdgeInsets.all(20), child: FlightCard()),
                       );
                     });
                 // flights = await FlighApiClient().fetchflightsData(797, 'AXB');
