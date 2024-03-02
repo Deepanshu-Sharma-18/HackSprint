@@ -1,5 +1,6 @@
 import 'package:flightsky/pages/mapview.dart';
 import 'package:flightsky/pages/splashScreen.dart';
+import 'package:flightsky/weather/weatherpage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,7 +24,7 @@ class _MyAppState extends State<MyApp> {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home:SplashScreen()
+        home:WeatherScreen()
           );
 
   }
