@@ -1,6 +1,5 @@
-import 'package:flightsky/models/flights.dart';
-
 import 'package:flutter/material.dart';
+import 'package:flightsky/models/flights.dart';
 
 class SearchFlightPage extends StatefulWidget {
   const SearchFlightPage({Key? key}) : super(key: key);
@@ -24,28 +23,7 @@ class _SearchFlightPageState extends State<SearchFlightPage> {
       passengerCapacity: 150,
       bookedPassengers: 100,
     ),
-    Flight(
-      flightId: "AI202",
-      src: "Chennai",
-      des: "Kolkata",
-      departureTime: "09:30",
-      arrivalTime: "12:00",
-      srcCoordinates: [13.0827, 80.2707], 
-      desCoordinates: [22.5726, 88.3639], 
-      passengerCapacity: 180,
-      bookedPassengers: 120,
-    ),
-    Flight(
-      flightId: "AI303",
-      src: "Bangalore",
-      des: "Hyderabad",
-      departureTime: "11:15",
-      arrivalTime: "13:00",
-      srcCoordinates: [12.9716, 77.5946],
-      desCoordinates: [17.3850, 78.4867], 
-      passengerCapacity: 200,
-      bookedPassengers: 150,
-    ),
+    // Define other flights similarly
   ];
 
   List<Flight> filteredFlights = [];
@@ -53,14 +31,18 @@ class _SearchFlightPageState extends State<SearchFlightPage> {
   @override
   void initState() {
     super.initState();
-    filteredFlights = flights;
+    filteredFlights = [];
   }
 
   void filterFlights(String query) {
     setState(() {
-      filteredFlights = flights
-          .where((flight) => flight.flightId.toLowerCase().contains(query.toLowerCase()))
-          .toList();
+      if (query.isNotEmpty) {
+        filteredFlights = flights
+            .where((flight) => flight.flightId.toLowerCase().contains(query.toLowerCase()))
+            .toList();
+      } else {
+        filteredFlights = [];
+      }
     });
   }
 
@@ -112,3 +94,4 @@ class _SearchFlightPageState extends State<SearchFlightPage> {
     );
   }
 }
+

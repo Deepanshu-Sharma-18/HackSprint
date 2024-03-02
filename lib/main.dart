@@ -1,3 +1,4 @@
+import 'package:flightsky/pages/Searchmap.dart';
 import 'package:flightsky/pages/mapview.dart';
 import 'package:flightsky/pages/splashScreen.dart';
 import 'package:flightsky/weather/weatherpage.dart';
@@ -24,6 +25,6 @@ class _MyAppState extends State<MyApp> {
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
           useMaterial3: true,
         ),
-        home: SplashScreen());
+        home: SearchFlightPage());
   }
 }
