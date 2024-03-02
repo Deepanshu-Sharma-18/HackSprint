@@ -4,8 +4,10 @@ import 'package:flightsky/models/LatLong.dart';
 import 'package:flightsky/models/flightsapi.dart';
 import 'package:flightsky/models/opensky.dart';
 import 'package:flightsky/pages/components/flight_card.dart';
+import 'package:flightsky/pages/components/search_bar.dart';
 import 'package:flightsky/repository/flightsapi_client.dart';
 import 'package:flightsky/repository/opensky_client.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -70,10 +72,6 @@ class _MapViewState extends State<MapView> {
                             padding: EdgeInsets.all(20), child: FlightCard()),
                       );
                     });
-                // flights = await FlighApiClient().fetchflightsData(797, 'AXB');
-                // if (kDebugMode) {
-                //   print(flights);
-                // }
               },
               child: Transform.rotate(
                 angle: data.states?[i][10] == null
@@ -98,26 +96,29 @@ class _MapViewState extends State<MapView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       // bottomSheet: BottomSheet(onClosing: onClosing, builder: builder),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.white60,
-        onPressed: () async {
-          setState(() {
-            refresh = true;
-            markers = [];
-            coordinates = [];
-          });
-          await fetchOpenSkyData();
-          setState(() {
-            refresh = false;
-          });
-        },
-        child: const Icon(Icons.refresh),
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 40.0),
+        child: FloatingActionButton(
+          backgroundColor: Colors.white60,
+          onPressed: () async {
+            setState(() {
+              refresh = true;
+              markers = [];
+              coordinates = [];
+            });
+            await fetchOpenSkyData();
+            setState(() {
+              refresh = false;
+            });
+          },
+          child: const Icon(Icons.refresh),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(0),
         // child: Container()));
-
         child: refresh
             ? const SizedBox(
                 height: double.maxFinite,
@@ -128,23 +129,34 @@ class _MapViewState extends State<MapView> {
                   ),
                 ),
               )
-            : FlutterMap(
-                options: const MapOptions(
-                  initialCenter: LatLng(20, 78),
-                  initialZoom: 5,
-                ),
+            : Stack(
                 children: [
-                  TileLayer(
-                    urlTemplate:
-                        'https://api.mapbox.com/styles/v1/deepanshu1810/clt9kgyby007x01qr09nuc18h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGVlcGFuc2h1MTgxMCIsImEiOiJjbHQ4cG05aHIwdDhiMmlxbXAwbnlndmtnIn0.l_mnRepKUMb8zAy_-YNxkA',
-                    additionalOptions: {
-                      'accessToken': access_key,
-                      'id': 'mapbox.mapbox-streets-v8'
-                    },
+                  FlutterMap(
+                    options: const MapOptions(
+                      initialCenter: LatLng(20, 78),
+                      initialZoom: 5,
+                    ),
+                    children: [
+                      TileLayer(
+                        urlTemplate:
+                            'https://api.mapbox.com/styles/v1/deepanshu1810/clt9kgyby007x01qr09nuc18h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGVlcGFuc2h1MTgxMCIsImEiOiJjbHQ4cG05aHIwdDhiMmlxbXAwbnlndmtnIn0.l_mnRepKUMb8zAy_-YNxkA',
+                        additionalOptions: {
+                          'accessToken': access_key,
+                          'id': 'mapbox.mapbox-streets-v8'
+                        },
+                      ),
+                      MarkerLayer(
+                        markers: markers,
+                      ),
+                    ],
                   ),
-                  MarkerLayer(
-                    markers: markers,
-                  ),
+                  data == null
+                      ? Container()
+                      : Positioned(
+                          left: 10,
+                          right: 10,
+                          top: 60,
+                          child: GlassEffectSearchBar(list: data!.states!)),
                 ],
               ),
       ),
