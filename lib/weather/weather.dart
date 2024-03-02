@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flightsky/constants.dart';
 
-final String apiKey = openweatherKey; 
+final String apiKey = "";
 
 final dio = Dio();
 
@@ -46,5 +46,3 @@ Future<WeatherData> getCurrentWeather(double latitude, double longitude) async {
     throw Exception('Request failed with error: $error');
   }
 }
-
-
