@@ -29,7 +29,7 @@ class _MapViewState extends State<MapView> {
       if (data != null) {
         getCoordinates(data!);
         print(data!.states!);
-        // getCoordinates(data!);
+        
       }
     }
   }
