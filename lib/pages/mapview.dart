@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 
+
 class MapView extends StatefulWidget {
   const MapView({super.key});
 
@@ -95,18 +96,19 @@ class _MapViewState extends State<MapView> {
       body: Padding(
         padding: const EdgeInsets.all(0),
         // child: Container()));
+
         child: refresh
-            ? Container(
+            ? const SizedBox(
                 height: double.maxFinite,
                 width: double.maxFinite,
-                child: const Center(
+                child: Center(
                   child: CircularProgressIndicator(
                     color: Colors.white,
                   ),
                 ),
               )
             : FlutterMap(
-                options: MapOptions(
+                options: const MapOptions(
                   initialCenter: LatLng(20, 78),
                   initialZoom: 5,
                 ),
@@ -115,7 +117,7 @@ class _MapViewState extends State<MapView> {
                     urlTemplate:
                         'https://api.mapbox.com/styles/v1/deepanshu1810/clt9kgyby007x01qr09nuc18h/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1IjoiZGVlcGFuc2h1MTgxMCIsImEiOiJjbHQ4cG05aHIwdDhiMmlxbXAwbnlndmtnIn0.l_mnRepKUMb8zAy_-YNxkA',
                     additionalOptions: {
-                      'accessToken': access_key,
+                      'accessToken': accesskey,
                       'id': 'mapbox.mapbox-streets-v8'
                     },
                   ),
