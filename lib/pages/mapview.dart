@@ -60,9 +60,10 @@ class _MapViewState extends State<MapView> {
                   ? 0.0
                   : data.states![i][10].toDouble(),
               child: Image.asset(
-                'assets/airplane.png',
-                height: 30,
-                width: 30,
+                height: 10,
+                width: 10,
+                'assets/airplane24.png',
+                fit: BoxFit.cover,
               ),
             )));
       }
