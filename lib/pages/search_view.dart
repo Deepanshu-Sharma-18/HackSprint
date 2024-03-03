@@ -40,14 +40,8 @@ class _MyWidgetState extends State<SearchView> {
         marker = Marker(
           point: LatLng(coordinates!.lat, coordinates!.long),
           child: Transform.rotate(
-            angle: list[i][10] == null ? 0.0 : list[i][10].toDouble(),
-            child: Image.asset(
-              height: 10,
-              width: 10,
-              'assets/airplane24.png',
-              fit: BoxFit.cover,
-            ),
-          ),
+              angle: list[i][10] == null ? 0.0 : list[i][10].toDouble(),
+              child: Icon(Icons.flight, color: Colors.white, size: 15.0)),
         );
 
         setState(() {});

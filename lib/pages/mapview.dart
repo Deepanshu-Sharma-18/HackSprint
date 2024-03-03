@@ -23,8 +23,12 @@ class MapView extends StatefulWidget {
 
 class _MapViewState extends State<MapView> {
   OpenSky? data;
+  Timer? timer;
 
   Future<void> fetchOpenSkyData() async {
+    coordinates = [];
+    markers = [];
+    flights = [];
     data = await OpenSkyClient().fetchOpenSkyData();
     setState(() {});
     if (kDebugMode) {
@@ -46,6 +50,15 @@ class _MapViewState extends State<MapView> {
   void initState() {
     super.initState();
     fetchOpenSkyData();
+    timer = Timer.periodic(const Duration(seconds: 10), (Timer t) {
+      fetchOpenSkyData();
+    });
+  }
+
+  @override
+  void dispose() {
+    timer?.cancel();
+    super.dispose();
   }
 
   void getCoordinates(OpenSky data) {
@@ -74,16 +87,10 @@ class _MapViewState extends State<MapView> {
                     });
               },
               child: Transform.rotate(
-                angle: data.states?[i][10] == null
-                    ? 0.0
-                    : data.states![i][10].toDouble(),
-                child: Image.asset(
-                  height: 10,
-                  width: 10,
-                  'assets/airplane24.png',
-                  fit: BoxFit.cover,
-                ),
-              ),
+                  angle: data.states?[i][10] == null
+                      ? 0.0
+                      : data.states![i][10].toDouble(),
+                  child: Icon(Icons.flight, color: Colors.white, size: 15.0)),
             )));
       }
       if (kDebugMode) {
@@ -97,11 +104,12 @@ class _MapViewState extends State<MapView> {
   Widget build(BuildContext context) {
     return Scaffold(
       floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
-      // bottomSheet: BottomSheet(onClosing: onClosing, builder: builder),
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 40.0),
         child: FloatingActionButton(
-          backgroundColor: Colors.white60,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+          backgroundColor: Color.fromARGB(195, 255, 255, 255),
           onPressed: () async {
             setState(() {
               refresh = true;
